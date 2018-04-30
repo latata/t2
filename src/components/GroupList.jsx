@@ -8,6 +8,8 @@ class GroupList extends Component {
   constructor(props) {
     super(props);
 
+    this.removeGroup = this.removeGroup.bind(this);
+
     this.state = {
       groups: [],
     };
@@ -21,8 +23,17 @@ class GroupList extends Component {
     this.fetchGroups(newProps.location.search);
   }
 
+  removeGroup(group, event) {
+    event.preventDefault();
+    if (window.confirm('Czy na pewno chcesz zarchiwizować grupę?')) {
+      group.$delete(() => {
+        this.fetchGroups(this.props.location.search);
+      });
+    }
+  }
+
   fetchGroups(search = '') {
-    Group.$getAll(search)
+    Group.$getAll()
       .then((groups) => {
         this.setState({ groups });
       });
@@ -37,6 +48,7 @@ class GroupList extends Component {
         <td>
           <Link to={`/group/${group._id}/edit`}><Icon name="pencil" /></Link>
           <Link to={`/group/${group._id}/payment-check`}><Icon name="dollar" /></Link>
+          <a href="ddd" onClick={event => this.removeGroup(group, event)}><Icon name="trash" /></a>
         </td>
       </tr>));
 

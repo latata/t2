@@ -45,7 +45,9 @@ export default class Group extends Base({
       .then(group => Group.create(group));
   }
 
-  static $getAll(search = '') {
+  static $getAll(showDeleted) {
+    const search = showDeleted ? '?showDeleted=1' : '';
+
     return http(`group${search}`)
       .then(groups => List(groups.map(group => Group.create(group))));
   }
@@ -58,6 +60,13 @@ export default class Group extends Base({
       http(`group/${this._id}`, 'put', this.flatten())
         .then(callback);
     }
+
+    return this;
+  }
+
+  $delete(callback) {
+    http(`group/${this._id}`, 'delete')
+      .then(callback);
 
     return this;
   }

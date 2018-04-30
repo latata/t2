@@ -33,7 +33,7 @@ class StudentForm extends Component {
   }
 
   componentDidMount() {
-    Group.$getAll()
+    Group.$getAll(true)
       .then((groups) => {
         this.setState({
           groups: groups.map(group => Map({
