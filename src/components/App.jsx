@@ -61,7 +61,7 @@ class App extends Component {
               <Route path="/student/:id([a-f0-9]{24})" component={StudentDetails} />
               <Route path="/student/edit/:id" component={StudentEdit} />
               <Route path="/student/new/:groupId" component={StudentCreate} />
-              <Route path="/connect-transfers" component={ConnectTransfers} />
+              <Route path="/connect-transfers/:company" component={ConnectTransfers} />
               <Route path="/banktransfer/:id([a-f0-9]{24})/assign" component={BankTransferAssign} />
             </React.Fragment>
             }

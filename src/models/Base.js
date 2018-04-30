@@ -11,7 +11,7 @@ export default defaultValues => class extends Record({
     Object.keys(this.toJS())
       .forEach((key) => {
         let value = asJS[key];
-        if (typeof value === 'object' && value._id) {
+        if (value && typeof value === 'object' && value._id) {
           value = value._id;
         }
         flattenObj[key] = value;

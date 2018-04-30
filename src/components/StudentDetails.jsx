@@ -3,7 +3,7 @@ import 'react-select/dist/react-select.css';
 import { Link, Route } from 'react-router-dom';
 import get from 'lodash.get';
 import Icon from './Icon';
-import formatData from '../helpers/date';
+import formatDate from '../helpers/date';
 
 function StudentData({ student }) {
   return (
@@ -34,7 +34,7 @@ function StudentData({ student }) {
             <Icon name="people" className="mr-2" /> klasa {get(student, 'className')}
           </div>
           <div className="d-flex align-items-center mb-2">
-            <Icon name="calendar" className="mr-2" /> {formatData(get(student, 'birthDate'))}
+            <Icon name="calendar" className="mr-2" /> {formatDate(get(student, 'birthDate'))}
           </div>
         </div>
       </div>

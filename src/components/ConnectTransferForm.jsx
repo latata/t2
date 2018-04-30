@@ -4,6 +4,7 @@ import { List, Map } from 'immutable';
 import Icon from './Icon';
 import Student from '../models/Student';
 import Payment from '../models/Payment';
+import formatDate from '../helpers/date';
 
 class ConnectTransferForm extends Component {
   static getDerivedStateFromProps(props) {
@@ -164,7 +165,7 @@ class ConnectTransferForm extends Component {
 
   selectStudent(index, data) {
     let student;
-    let { paymentItems } = this.state.paymentItems;
+    let { paymentItems } = this.state;
 
     if (data) {
       if (data.student) {
@@ -206,6 +207,10 @@ class ConnectTransferForm extends Component {
             <div className="mb-2">
               <span className="font-weight-bold">Kwota: </span>
               {this.props.item.bankTransfer.amount} PLN
+            </div>
+            <div className="mb-2">
+              <span className="font-weight-bold">Data: </span>
+              {formatDate(this.props.item.bankTransfer.operationDate)}
             </div>
           </div>
           <div className="col-md-8">

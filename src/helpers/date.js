@@ -1,4 +1,4 @@
-export default function formatData(date) {
+export default function formatDate(date) {
   if (date) {
     return date.substring(0, 10);
   }

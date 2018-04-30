@@ -3,6 +3,12 @@ import ConnectTransferForm from './ConnectTransferForm';
 import BankTransferWithMatchingStudents from '../models/BankTransferWithMatchingStudents';
 
 class ConnectTransfers extends Component {
+  static getDerivedStateFromProps(props) {
+    return {
+      company: props.match.params.company,
+    };
+  }
+
   constructor(props) {
     super(props);
 
@@ -12,10 +18,13 @@ class ConnectTransfers extends Component {
   }
 
   componentDidMount() {
-    BankTransferWithMatchingStudents.getAllBankTransfersToAssign()
-      .then((bankTransfersWithMatchingStudents) => {
-        this.setState({ bankTransfersWithMatchingStudents });
-      });
+    this.loadData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.company !== this.state.company) {
+      this.loadData();
+    }
   }
 
   onSave(index) {
@@ -24,6 +33,13 @@ class ConnectTransfers extends Component {
     this.setState({
       bankTransfersWithMatchingStudents,
     });
+  }
+
+  loadData() {
+    BankTransferWithMatchingStudents.getAllBankTransfersToAssign(this.state.company)
+      .then((bankTransfersWithMatchingStudents) => {
+        this.setState({ bankTransfersWithMatchingStudents });
+      });
   }
 
   render() {

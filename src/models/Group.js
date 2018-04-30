@@ -7,6 +7,7 @@ export default class Group extends Base({
   code: undefined,
   name: undefined,
   year: undefined,
+  company: undefined,
   students: List(),
   groupPayments: List(),
   pricing: Map(),
@@ -16,11 +17,12 @@ export default class Group extends Base({
 
     if (typeof data !== 'object') {
       group._id = data;
-    } else {
+    } else if (data) {
       group._id = data._id;
       group.code = data.code;
       group.name = data.name;
       group.year = data.year;
+      group.company = data.company;
       group.students = data.students && List(data.students.map(student => Student.create(student)))
         .sort((a, b) => (a.lastName.toLowerCase() < b.lastName.toLowerCase() ? -1 : 1));
       group.groupPayments = data.groupPayments && List(data.groupPayments);

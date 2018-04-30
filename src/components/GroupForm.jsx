@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import get from 'lodash.get';
+import Select from 'react-select';
 import GroupPricingForm from './GroupPricingForm';
 import Group from '../models/Group';
 
@@ -9,6 +10,7 @@ class GroupForm extends Component {
 
     this.inputChanged = this.inputChanged.bind(this);
     this.updatePricing = this.updatePricing.bind(this);
+    this.companyChanged = this.companyChanged.bind(this);
     this.submit = this.submit.bind(this);
 
     this.state = {
@@ -24,6 +26,10 @@ class GroupForm extends Component {
 
   inputChanged(event) {
     this.setState({ group: this.state.group.set(event.target.name, event.target.value) });
+  }
+
+  companyChanged(data) {
+    this.setState({ group: this.state.group.set('company', data && data.value) });
   }
 
   updatePricing(pricing) {
@@ -66,6 +72,24 @@ class GroupForm extends Component {
             className="form-control"
             value={get(this, 'state.group.year', '')}
             onChange={this.inputChanged}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="company">Firma</label>
+          <Select
+            name="company"
+            value={this.state.group.company}
+            onChange={this.companyChanged}
+            options={[
+              {
+                label: 'LT',
+                value: 'LT',
+              },
+              {
+                label: 'AT',
+                value: 'AT',
+              },
+            ]}
           />
         </div>
         <button

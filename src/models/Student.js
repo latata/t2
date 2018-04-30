@@ -24,7 +24,7 @@ export default class Student extends Base({
 
     if (typeof data !== 'object') {
       student._id = data;
-    } else {
+    } else if (data) {
       student._id = data._id;
       student.firstName = data.firstName;
       student.lastName = data.lastName;

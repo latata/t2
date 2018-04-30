@@ -17,8 +17,8 @@ export default class BankTransferWithMatchingStudents extends Record({
     return data && new BankTransferWithMatchingStudents(bankTransferWithMatchingStudents);
   }
 
-  static getAllBankTransfersToAssign() {
-    return http('connectbanktransfers')
+  static getAllBankTransfersToAssign(company = 'AT') {
+    return http(`connectbanktransfers/${company}`)
       .then(bankTransfersWithMatchingStudents =>
         List(bankTransfersWithMatchingStudents.map(bankTransferWithMatchingStudents =>
           BankTransferWithMatchingStudents.create(bankTransferWithMatchingStudents))));

@@ -16,7 +16,7 @@ class BankTransfer extends Base({
 
     if (typeof data !== 'object') {
       bankTransfer._id = data;
-    } else {
+    } else if (data) {
       bankTransfer._id = data._id;
       bankTransfer.amount = data.amount;
       bankTransfer.hash = data.hash;

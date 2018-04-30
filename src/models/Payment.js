@@ -17,7 +17,7 @@ export default class Payment extends Base({
 
     if (typeof data !== 'object') {
       payment._id = data;
-    } else {
+    } else if (data) {
       payment._id = data._id;
       payment.amount = data.amount;
       payment.operationDate = data.operationDate;

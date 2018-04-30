@@ -25,7 +25,7 @@ export default class GroupPricing extends Base({
 
     if (typeof data !== 'object') {
       groupPricing._id = data;
-    } else {
+    } else if (data) {
       groupPricing._id = data._id;
       groupPricing.name = data.name;
       groupPricing.r9oct = data.r9oct;

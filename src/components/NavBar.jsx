@@ -35,8 +35,8 @@ function NavBar() {
                 płatności
               </a>
               <div className="dropdown-menu" aria-labelledby="dropdown03">
-                <Link to="/connect-transfers" className="dropdown-item">Anna Tatała</Link>
-                <Link to="/connect-transfers" className="dropdown-item">Leszek Tatała</Link>
+                <Link to="/connect-transfers/AT" className="dropdown-item">Anna Tatała</Link>
+                <Link to="/connect-transfers/LT" className="dropdown-item">Leszek Tatała</Link>
               </div>
             </li>
           </ul>
