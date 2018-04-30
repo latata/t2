@@ -42,24 +42,38 @@ function PricingItem(props) {
     installment = 'rat';
   }
 
-  return (<div className="form-group">
-    <label htmlFor={props.name}>{number} {installment} {monthName}</label>
-    <input
-      name={props.name}
-      id={props.name}
-      className="form-control"
-      value={value}
-      onChange={props.inputChanged}
-    />
-          </div>);
+  return (
+    <div className="form-group">
+      <label htmlFor={props.name}>{number} {installment} {monthName}</label>
+      <input
+        name={props.name}
+        id={props.name}
+        className="form-control"
+        value={value}
+        onChange={props.inputChanged}
+      />
+    </div>);
 }
 
 class GroupPricingForm extends Component {
+  static fillPricing(pricing) {
+    let filledPricing = Map(pricing);
+    pricingItems.forEach((item) => {
+      if (typeof filledPricing.get(item) === 'undefined') {
+        filledPricing = filledPricing.set(item, 0);
+      }
+    });
+
+    return filledPricing;
+  }
+
   constructor(props) {
     super(props);
 
     this.inputChanged = this.inputChanged.bind(this);
-    const pricing = this.fillPricing(this.props.pricing, pricingItems);
+    this.usePricing = this.usePricing.bind(this);
+
+    const pricing = GroupPricingForm.fillPricing(this.props.pricing);
 
     this.state = {
       pricing,
@@ -72,17 +86,6 @@ class GroupPricingForm extends Component {
       .then((groupPricings) => {
         this.setState({ groupPricings });
       });
-  }
-
-  fillPricing(pricing, pricingItems) {
-    let filledPricing = Map(pricing);
-    pricingItems.forEach((item) => {
-      if (typeof filledPricing.get(item) === 'undefined') {
-        filledPricing = filledPricing.set(item, 0);
-      }
-    });
-
-    return filledPricing;
   }
 
   updatePricing(pricing) {
@@ -100,7 +103,7 @@ class GroupPricingForm extends Component {
   usePricing(groupPricing, event) {
     event.preventDefault();
 
-    let pricing = this.state.pricing;
+    let { pricing } = this.state;
 
     pricingItems.forEach((pricingItem) => {
       pricing = pricing.set(pricingItem, groupPricing[pricingItem]);
@@ -118,24 +121,26 @@ class GroupPricingForm extends Component {
   }
 
   render() {
-    return (<div>
+    return (
       <div>
-        {this.state.groupPricings && this.state.groupPricings.map(groupPricing => (<span
-          key={groupPricing._id}
-        ><a
-          href="qwe"
-          onClick={this.usePricing.bind(this, groupPricing)}
-        >{groupPricing.name}
-        </a> |
-        </span>))}
-      </div>
-      {this.state.pricingItems.map(item => (<PricingItem
-        key={item}
-        name={item}
-        pricing={this.state.pricing}
-        inputChanged={this.inputChanged}
-      />))}
-            </div>);
+        <div>
+          {this.state.groupPricings && this.state.groupPricings.map(groupPricing => (
+            <span key={groupPricing._id}>
+              <a
+                href="qwe"
+                onClick={event => this.usePricing(groupPricing, event)}
+              >
+                {groupPricing.name}
+              </a> |
+            </span>))}
+        </div>
+        {this.state.pricingItems.map(item => (<PricingItem
+          key={item}
+          name={item}
+          pricing={this.state.pricing}
+          inputChanged={this.inputChanged}
+        />))}
+      </div>);
   }
 }
 

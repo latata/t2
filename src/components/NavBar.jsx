@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-class NavBar extends Component {
-  render() {
-    return (<nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+function NavBar() {
+  return (
+    <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
       <div className="container">
         <Link to="/" className="navbar-brand">Studio Tańca Tango</Link>
         <button
@@ -45,8 +45,7 @@ class NavBar extends Component {
           </form>
         </div>
       </div>
-            </nav>);
-  }
+    </nav>);
 }
 
 export default NavBar;

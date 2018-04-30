@@ -12,10 +12,6 @@ class BankTransfer extends Base({
   transactionType: undefined,
 }) {
   static create(data) {
-    if (!data) {
-      return;
-    }
-
     const bankTransfer = {};
 
     if (typeof data !== 'object') {
@@ -32,7 +28,7 @@ class BankTransfer extends Base({
       bankTransfer.transactionType = data.transactionType;
     }
 
-    return new BankTransfer(bankTransfer);
+    return data && new BankTransfer(bankTransfer);
   }
 
   static getById(id) {

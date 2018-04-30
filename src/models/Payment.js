@@ -1,8 +1,8 @@
+import { List } from 'immutable';
 import Base from './Base';
 import Group from './Group';
 import Student from './Student';
 import BankTransfer from './BankTransfer';
-import { List } from 'immutable';
 import http from '../http';
 
 export default class Payment extends Base({
@@ -13,10 +13,6 @@ export default class Payment extends Base({
   paymentBankTransfer: undefined,
 }) {
   static create(data) {
-    if (!data) {
-      return;
-    }
-
     const payment = {};
 
     if (typeof data !== 'object') {
@@ -30,7 +26,7 @@ export default class Payment extends Base({
       payment.paymentBankTransfer = BankTransfer.create(data.paymentBankTransfer);
     }
 
-    return new Payment(payment);
+    return data && new Payment(payment);
   }
 
   static getAllByBankTransferId(id) {

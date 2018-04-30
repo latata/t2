@@ -9,6 +9,8 @@ class GroupEdit extends Component {
   constructor(props) {
     super(props);
 
+    this.submit = this.submit.bind(this);
+
     this.state = {
       group: null,
     };
@@ -29,11 +31,12 @@ class GroupEdit extends Component {
   }
 
   render() {
-    return (<div className="m-3"><h3>{get(this, 'state.group.code')}</h3><GroupForm
-      onSubmit={this.submit.bind(this)}
-      group={this.state.group}
-    />
-            </div>);
+    return (
+      <div className="m-3"><h3>{get(this, 'state.group.code')}</h3><GroupForm
+        onSubmit={this.submit}
+        group={this.state.group}
+      />
+      </div>);
   }
 }
 

@@ -8,22 +8,19 @@ export default class BankTransferWithMatchingStudents extends Record({
   matchingStudentsResult: undefined,
 }) {
   static create(data) {
-    if (!data) {
-      return;
-    }
-
     const bankTransferWithMatchingStudents = {};
 
     bankTransferWithMatchingStudents.bankTransfer = BankTransfer.create(data.bankTransfer);
     bankTransferWithMatchingStudents.matchingStudentsResult = List(data.matchingStudentsResult
       .map(student => Student.create(student)));
 
-    return new BankTransferWithMatchingStudents(bankTransferWithMatchingStudents);
+    return data && new BankTransferWithMatchingStudents(bankTransferWithMatchingStudents);
   }
 
   static getAllBankTransfersToAssign() {
     return http('connectbanktransfers')
-      .then(bankTransfersWithMatchingStudents => List(bankTransfersWithMatchingStudents.map(bankTransferWithMatchingStudents =>
-        BankTransferWithMatchingStudents.create(bankTransferWithMatchingStudents))));
+      .then(bankTransfersWithMatchingStudents =>
+        List(bankTransfersWithMatchingStudents.map(bankTransferWithMatchingStudents =>
+          BankTransferWithMatchingStudents.create(bankTransferWithMatchingStudents))));
   }
 }

@@ -6,5 +6,9 @@ module.exports = {
   rules: {
     'react/prop-types': 0,
     'no-underscore-dangle': 0,
+    'jsx-a11y/anchor-is-valid': 0,
+    'jsx-a11y/label-has-for': 0,
+    'react/no-array-index-key': 0,
+    'no-alert': 0,
   },
 };

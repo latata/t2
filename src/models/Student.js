@@ -20,10 +20,6 @@ export default class Student extends Base({
   studentPayments: List(),
 }) {
   static create(data) {
-    if (!data) {
-      return;
-    }
-
     const student = {};
 
     if (typeof data !== 'object') {
@@ -47,7 +43,7 @@ export default class Student extends Base({
       student.studentPayments = List(data.studentPayments);
     }
 
-    return new Student(student);
+    return data && new Student(student);
   }
 
   getFullName() {

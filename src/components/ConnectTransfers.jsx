@@ -27,13 +27,14 @@ class ConnectTransfers extends Component {
   }
 
   render() {
-    return (<div>
-      {this.state.bankTransfersWithMatchingStudents.map((item, index) => (<ConnectTransferForm
-        key={item.bankTransfer._id}
-        item={item}
-        onSave={this.onSave.bind(this, index)}
-      />))}
-            </div>);
+    return (
+      <div>
+        {this.state.bankTransfersWithMatchingStudents.map((item, index) => (<ConnectTransferForm
+          key={item.bankTransfer._id}
+          item={item}
+          onSave={() => this.onSave(index)}
+        />))}
+      </div>);
   }
 }
 

@@ -10,6 +10,8 @@ class StudentEdit extends Component {
   constructor(props) {
     super(props);
 
+    this.submit = this.submit.bind(this);
+
     this.state = {
       student: null,
     };
@@ -28,10 +30,11 @@ class StudentEdit extends Component {
   }
 
   render() {
-    return (<div className="m-3">
-      <h3>{`${get(this, 'state.student.firstName')} ${get(this, 'state.student.lastName')}`}</h3>
-      <StudentForm onSubmit={this.submit.bind(this)} student={this.state.student} />
-            </div>);
+    return (
+      <div className="m-3">
+        <h3>{`${get(this, 'state.student.firstName')} ${get(this, 'state.student.lastName')}`}</h3>
+        <StudentForm onSubmit={this.submit} student={this.state.student} />
+      </div>);
   }
 }
 

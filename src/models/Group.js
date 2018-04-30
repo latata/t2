@@ -12,10 +12,6 @@ export default class Group extends Base({
   pricing: Map(),
 }) {
   static create(data) {
-    if (!data) {
-      return;
-    }
-
     const group = {};
 
     if (typeof data !== 'object') {
@@ -31,7 +27,7 @@ export default class Group extends Base({
       group.pricing = data.pricing && Map(data.pricing);
     }
 
-    return new Group(group);
+    return data && new Group(group);
   }
 
   getCurrentStudents() {

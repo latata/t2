@@ -21,10 +21,6 @@ export default class GroupPricing extends Base({
   r1oct: undefined,
 }) {
   static create(data) {
-    if (!data) {
-      return;
-    }
-
     const groupPricing = {};
 
     if (typeof data !== 'object') {
@@ -49,11 +45,12 @@ export default class GroupPricing extends Base({
       groupPricing.r1oct = data.r1oct;
     }
 
-    return new GroupPricing(groupPricing);
+    return data && new GroupPricing(groupPricing);
   }
 
   static $getAll() {
     return http('grouppricing')
-      .then(groupPricings => List(groupPricings.map(groupPricing => GroupPricing.create(groupPricing))));
+      .then(groupPricings =>
+        List(groupPricings.map(groupPricing => GroupPricing.create(groupPricing))));
   }
 }
