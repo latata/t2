@@ -4,6 +4,7 @@ import { Link, Route } from 'react-router-dom';
 import get from 'lodash.get';
 import Icon from './Icon';
 import formatDate from '../helpers/date';
+import Student from '../models/Student';
 
 function StudentData({ student }) {
   return (
@@ -78,6 +79,12 @@ const linkClass = 'nav-link';
 const activeLinkClass = 'nav-link active';
 
 class StudentDetails extends Component {
+  static getDerivedStateFromProps(props) {
+    return {
+      id: props.match.params.id,
+    };
+  }
+
   constructor(props) {
     super(props);
 
@@ -87,11 +94,18 @@ class StudentDetails extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:1337/student/${this.props.match.params.id}`)
-      .then(response => response.json())
-      .then((student) => {
-        this.setState({ student });
-      });
+    this.loadData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.id !== this.state.id) {
+      this.loadData();
+    }
+  }
+
+  loadData() {
+    Student.$getById(this.state.id)
+      .then(student => this.setState({ student }));
   }
 
   render() {

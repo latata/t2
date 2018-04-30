@@ -16,11 +16,11 @@ class GroupList extends Component {
   }
 
   componentDidMount() {
-    this.fetchGroups(this.props.location.search);
+    this.fetchGroups();
   }
 
-  componentWillReceiveProps(newProps) {
-    this.fetchGroups(newProps.location.search);
+  componentWillReceiveProps() {
+    this.fetchGroups();
   }
 
   removeGroup(group, event) {
@@ -32,7 +32,7 @@ class GroupList extends Component {
     }
   }
 
-  fetchGroups(search = '') {
+  fetchGroups() {
     Group.$getAll()
       .then((groups) => {
         this.setState({ groups });
@@ -57,14 +57,6 @@ class GroupList extends Component {
         <h2 className="d-flex justify-content-between">
           Grupy<Link to="/group/new"><Icon name="plus" /></Link>
         </h2>
-        <h6>
-          <Link to={{
-            pathname: this.props.location.pathname,
-            search: '?year=all',
-          }}
-          >Show all
-          </Link>
-        </h6>
         <table className="table">
           <thead>
             <tr>
