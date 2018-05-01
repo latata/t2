@@ -63,7 +63,8 @@ class GroupPaymentCheck extends Component {
     }
 
     return (
-      <div>
+      <React.Fragment>
+        <h2>{this.state.group.code}&nbsp;<small className="text-muted">Weryfikacja płatności</small></h2>
         <div className="form-group">
           <label htmlFor="payment-period">Okres</label>
           <Select
@@ -86,7 +87,7 @@ class GroupPaymentCheck extends Component {
               />))}
           </tbody>
         </table>
-      </div>);
+      </React.Fragment>);
   }
 }
 

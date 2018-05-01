@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import 'react-select/dist/react-select.css';
 import { Link, Route } from 'react-router-dom';
 import get from 'lodash.get';
 import Icon from './Icon';

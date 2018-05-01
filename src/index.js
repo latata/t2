@@ -4,10 +4,9 @@ import 'normalize.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'jquery';
 import 'bootstrap';
+import 'react-select/dist/react-select.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './test.css';
-import './index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import http from '../http';
+import http from '../services/http';
 
 class Login extends Component {
   constructor(props) {

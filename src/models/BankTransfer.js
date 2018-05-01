@@ -1,5 +1,5 @@
 import Base from './Base';
-import http from '../http';
+import http from '../services/http';
 
 class BankTransfer extends Base({
   amount: undefined,

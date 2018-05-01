@@ -92,16 +92,18 @@ class GroupForm extends Component {
             ]}
           />
         </div>
-        <button
-          type="button"
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            this.setState({ showPricing: !this.state.showPricing });
-          }}
-        >Pokaż cennik
-        </button>
-        {this.state.showPricing &&
-        <GroupPricingForm pricing={this.state.group.pricing} onUpdate={this.updatePricing} />}
+        <div className="mb-3">
+          <button
+            type="button"
+            className="btn btn-outline-secondary"
+            onClick={() => {
+              this.setState({ showPricing: !this.state.showPricing });
+            }}
+          >{this.state.showPricing ? 'Ukryj cennik' : 'Pokaż cennik'}
+          </button>
+          {this.state.showPricing &&
+          <GroupPricingForm pricing={this.state.group.pricing} onUpdate={this.updatePricing} />}
+        </div>
         <button type="submit" className="mb-4 btn btn-primary">
           Zapisz
         </button>

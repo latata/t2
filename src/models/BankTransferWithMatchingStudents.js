@@ -1,5 +1,5 @@
 import { List, Record } from 'immutable';
-import http from '../http';
+import http from '../services/http';
 import Student from './Student';
 import BankTransfer from './BankTransfer';
 

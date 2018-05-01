@@ -3,7 +3,7 @@ import Base from './Base';
 import Group from './Group';
 import Student from './Student';
 import BankTransfer from './BankTransfer';
-import http from '../http';
+import http from '../services/http';
 
 export default class Payment extends Base({
   amount: undefined,

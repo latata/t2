@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 import { List, Map } from 'immutable';
 import get from 'lodash.get';
 import Student from '../models/Student';
@@ -69,7 +68,7 @@ class StudentForm extends Component {
     return (
       <form onSubmit={this.submit}>
         <div className="form-group">
-          <label htmlFor="firstName">First name</label>
+          <label htmlFor="firstName">Imię</label>
           <input
             name="firstName"
             id="firstName"
@@ -79,7 +78,7 @@ class StudentForm extends Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="lastName">Last name</label>
+          <label htmlFor="lastName">Naziwsko</label>
           <input
             name="lastName"
             id="lastName"
@@ -89,7 +88,7 @@ class StudentForm extends Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="birthDate">Birth date</label>
+          <label htmlFor="birthDate">Data urodzenia</label>
           <input
             type="date"
             name="birthDate"
@@ -100,7 +99,7 @@ class StudentForm extends Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="phoneNo">Phone No</label>
+          <label htmlFor="phoneNo">Telefon</label>
           <input
             name="phoneNo"
             id="phoneNo"
@@ -110,7 +109,7 @@ class StudentForm extends Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="phoneNo2">Phone No 2</label>
+          <label htmlFor="phoneNo2">Telefon 2</label>
           <input
             name="phoneNo2"
             id="phoneNo2"
@@ -120,7 +119,7 @@ class StudentForm extends Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="street">Street</label>
+          <label htmlFor="street">Ulica</label>
           <input
             name="street"
             id="street"
@@ -130,7 +129,7 @@ class StudentForm extends Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="postalCode">Postal Code</label>
+          <label htmlFor="postalCode">Kod pocztowy</label>
           <input
             name="postalCode"
             id="postalCode"
@@ -140,7 +139,7 @@ class StudentForm extends Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="city">City</label>
+          <label htmlFor="city">Miejscowość</label>
           <input
             name="city"
             id="city"
@@ -161,7 +160,7 @@ class StudentForm extends Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="className">Class name</label>
+          <label htmlFor="className">Klasa</label>
           <input
             name="className"
             id="className"
@@ -171,17 +170,20 @@ class StudentForm extends Component {
           />
         </div>
 
-        <Select
-          name="form-field-name"
-          multi
-          value={StudentForm.getIds(get(this, 'state.student.groups', List())
-            .toJS())}
-          onChange={this.selectChanged}
-          options={this.state.groups.toJS()}
-        />
+        <div className="form-group">
+          <label htmlFor="groups">Grupy</label>
+          <Select
+            name="groups"
+            multi
+            value={StudentForm.getIds(get(this, 'state.student.groups', List())
+              .toJS())}
+            onChange={this.selectChanged}
+            options={this.state.groups.toJS()}
+          />
+        </div>
 
         <button type="submit" className="mb-4 btn btn-primary">
-          Submit
+          Zapisz
         </button>
       </form>);
   }

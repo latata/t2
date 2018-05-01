@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
+
 import './App.css';
 import NavBar from './NavBar';
 import GroupView from './GroupView';
@@ -14,10 +15,11 @@ import StudentDetails from './StudentDetails';
 import GroupEdit from './GroupEdit';
 import GroupCreate from './GroupCreate';
 import Login from './Login';
-import auth from '../auth';
+import auth from '../services/auth';
 import ConnectTransfers from './ConnectTransfers';
 import BankTransferAssign from './BankTransferAssign';
 import GroupPaymentCheck from './GroupPaymentCheck';
+import AttendanceList from './AttendanceList';
 
 class App extends Component {
   static onLoggedIn(data) {
@@ -54,6 +56,7 @@ class App extends Component {
             <React.Fragment>
               <Route exact path="/" component={GroupList} />
               <Route exact path="/group/:id([a-f0-9]{24})" component={GroupView} />
+              <Route exact path="/group/:id([a-f0-9]{24})/attendance-list" component={AttendanceList} />
               <Route path="/group/:id/edit" component={GroupEdit} />
               <Route path="/group/:id/payment-check" component={GroupPaymentCheck} />
               <Route path="/group/new" component={GroupCreate} />

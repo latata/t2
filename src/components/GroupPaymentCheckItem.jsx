@@ -83,7 +83,7 @@ class GroupPaymentCheckItem extends Component {
     const classNames = sum >= reducedAmount ? 'green' : 'red';
 
     return (
-      <tr className={classNames}>
+      <tr>
         <td><Link to={`/student/${student._id}`}>{student.firstName} {student.lastName}</Link></td>
         <td>
           <Select

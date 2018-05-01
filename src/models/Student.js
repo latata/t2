@@ -1,6 +1,6 @@
 import { Map, List, fromJS } from 'immutable';
 import Base from './Base';
-import http from '../http';
+import http from '../services/http';
 
 export default class Student extends Base({
   firstName: undefined,

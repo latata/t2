@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import get from 'lodash.get';
-import 'react-select/dist/react-select.css';
 import { withRouter } from 'react-router-dom';
 import GroupForm from './GroupForm';
 import Group from '../models/Group';
@@ -32,11 +31,13 @@ class GroupEdit extends Component {
 
   render() {
     return (
-      <div className="m-3"><h3>{get(this, 'state.group.code')}</h3><GroupForm
-        onSubmit={this.submit}
-        group={this.state.group}
-      />
-      </div>);
+      <React.Fragment>
+        <h2>{get(this, 'state.group.code')}</h2>
+        <GroupForm
+          onSubmit={this.submit}
+          group={this.state.group}
+        />
+      </React.Fragment>);
   }
 }
 

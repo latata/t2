@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import './GroupView.css';
 import Icon from './Icon';
 import Group from '../models/Group';
 import StudentsTable, { StudentRow } from './StudentsTable';
@@ -97,28 +98,25 @@ class GroupView extends Component {
     return (
       this.state.group && (
         <React.Fragment>
-          <h3 className="d-flex justify-content-between">
+          <h2 className="d-flex justify-content-between align-items-start">
             <div>
-              <span>{this.state.group.code}
-                <small
-                  className="text-muted"
-                >{this.state.group.name}
-                </small>
-              </span>
-              <span className="ml-2">
-                <Link to={`/group/${this.state.group._id}/edit`}><Icon name="pencil" /></Link>
-              </span>
-              <span className="ml-2">
-                <Link to={`/group/${this.state.group._id}/payment-check`}>
-                  <Icon name="dollar" />
+              {this.state.group.code}
+              <div className="btn-group ml-3">
+                <Link to={`/group/${this.state.group._id}/edit`} className="btn btn-outline-primary with-label">
+                  <Icon name="pencil" /> Edycja
                 </Link>
-              </span>
+                <Link to={`/group/${this.state.group._id}/payment-check`} className="btn btn-outline-primary with-label">
+                  <Icon name="dollar" /> Zaległości
+                </Link>
+                <Link to={`/group/${this.state.group._id}/attendance-list`} className="btn btn-outline-primary with-label">
+                  <Icon name="list" /> List obecności
+                </Link>
+              </div>
             </div>
-            <Link to={`/student/new/${this.state.group._id}`}><Icon
-              name="plus"
-            />
+            <Link to={`/student/new/${this.state.group._id}`} className="btn btn-outline-primary">
+              <Icon name="plus" /> Nowy uczeń
             </Link>
-          </h3>
+          </h2>
           <StudentsTable students={students} />
           {resignedStudents && resignedStudents.size && (
             <StudentsTable students={resignedStudents} /> || null)}

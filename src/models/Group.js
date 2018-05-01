@@ -1,7 +1,7 @@
 import { Map, List } from 'immutable';
 import Student from './Student';
 import Base from './Base';
-import http from '../http';
+import http from '../services/http';
 
 export default class Group extends Base({
   code: undefined,
@@ -38,6 +38,15 @@ export default class Group extends Base({
 
   getResignedStudents() {
     return this.students.filter(student => student.isResigned(this._id));
+  }
+
+  getCurrentSize() {
+    return this.students.reduce((prev, student) => {
+      if (!student.getIn(['groupsOptions', this._id, 'resigned'])) {
+        return prev + 1;
+      }
+      return prev;
+    }, 0);
   }
 
   static $getById(id) {

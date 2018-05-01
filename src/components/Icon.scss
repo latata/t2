@@ -1,0 +1,16 @@
+.icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.btn {
+  &.with-label .icon {
+    margin-right: 6px;
+  }
+
+  .icon {
+    vertical-align: middle;
+    margin-top: -2px;
+  }
+}

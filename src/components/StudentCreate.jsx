@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import 'react-select/dist/react-select.css';
 import StudentForm from './StudentForm';
 
 class StudentCreate extends Component {
@@ -15,11 +14,13 @@ class StudentCreate extends Component {
 
   render() {
     return (
-      <div className="m-3"><h3>Nowy uczeń</h3><StudentForm
-        group={this.props.match.params.groupId}
-        onSubmit={this.submit}
-      />
-      </div>);
+      <React.Fragment>
+        <h2>Nowy uczeń</h2>
+        <StudentForm
+          group={this.props.match.params.groupId}
+          onSubmit={this.submit}
+        />
+      </React.Fragment>);
   }
 }
 

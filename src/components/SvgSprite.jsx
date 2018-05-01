@@ -2,7 +2,7 @@ import React from 'react';
 
 function SvgSprite() {
   return (
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" style={{position: 'absolute', top: -1000, left: -1000}}>
       <defs>
         <symbol id="account-login" viewBox="0 0 8 8">
           <path d="M3 0v1h4v5h-4v1h5v-7h-5zm1 2v1h-4v1h4v1l2-1.5-2-1.5z" />

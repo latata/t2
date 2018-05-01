@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import 'react-select/dist/react-select.css';
-import get from 'lodash.get';
 import { withRouter } from 'react-router-dom';
 import StudentForm from './StudentForm';
 import Student from '../models/Student';
@@ -31,10 +29,11 @@ class StudentEdit extends Component {
 
   render() {
     return (
-      <div className="m-3">
-        <h3>{`${get(this, 'state.student.firstName')} ${get(this, 'state.student.lastName')}`}</h3>
+      this.state.student &&
+      <React.Fragment>
+        <h2>{this.state.student.getFullName()}</h2>
         <StudentForm onSubmit={this.submit} student={this.state.student} />
-      </div>);
+      </React.Fragment>);
   }
 }
 

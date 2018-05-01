@@ -1,4 +1,5 @@
 import React from 'react';
+import './Icon.css';
 
 export default function Icon({ className, name }) {
   const classNames = `icon ${className}`;
