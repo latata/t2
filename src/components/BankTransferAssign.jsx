@@ -29,7 +29,7 @@ class BankTransferAssign extends Component {
         this.setState({ item });
       });
 
-    Payment.getAllByBankTransferId(this.props.match.params.id)
+    Payment.$getAllByBankTransferId(this.props.match.params.id)
       .then((payments) => {
         this.setState({ payments });
       });

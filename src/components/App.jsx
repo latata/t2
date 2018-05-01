@@ -3,14 +3,14 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import './App.css';
 import NavBar from './NavBar';
-import GroupView from './GroupView';
+import GroupViewContainer from './GroupViewContainer';
 import SvgSprite from './SvgSprite';
 import StudentEdit from './StudentEdit';
 import StudentCreate from './StudentCreate';
-import GroupList from './GroupList';
 import StudentDetails from './StudentDetails';
 import GroupEdit from './GroupEdit';
 import GroupCreate from './GroupCreate';
@@ -20,6 +20,7 @@ import ConnectTransfers from './ConnectTransfers';
 import BankTransferAssign from './BankTransferAssign';
 import GroupPaymentCheck from './GroupPaymentCheck';
 import AttendanceList from './AttendanceList';
+import GroupListContainer from './GroupListContainer';
 
 class App extends Component {
   static onLoggedIn(data) {
@@ -54,13 +55,13 @@ class App extends Component {
           <div className="container">
             {!this.state.isLoggedIn ? <Login onLoggedIn={App.onLoggedIn} /> :
             <React.Fragment>
-              <Route exact path="/" component={GroupList} />
-              <Route exact path="/group/:id([a-f0-9]{24})" component={GroupView} />
+              <Route exact path="/" component={GroupListContainer} />
+              <Route exact path="/group/:id([a-f0-9]{24})" component={GroupViewContainer} />
               <Route exact path="/group/:id([a-f0-9]{24})/attendance-list" component={AttendanceList} />
               <Route path="/group/:id/edit" component={GroupEdit} />
               <Route path="/group/:id/payment-check" component={GroupPaymentCheck} />
               <Route path="/group/new" component={GroupCreate} />
-              <Route path="/groups" component={GroupList} />
+              <Route path="/groups" component={GroupListContainer} />
               <Route path="/student/:id([a-f0-9]{24})" component={StudentDetails} />
               <Route path="/student/edit/:id" component={StudentEdit} />
               <Route path="/student/new/:groupId" component={StudentCreate} />
@@ -69,6 +70,7 @@ class App extends Component {
             </React.Fragment>
             }
           </div>
+          <ToastContainer />
           <SvgSprite />
         </div>
       </Router>

@@ -116,7 +116,7 @@ class ConnectTransferForm extends Component {
   submit(event) {
     event.preventDefault();
 
-    Payment.saveAll(this.state.paymentItems.map(paymentItem => Payment.create({
+    Payment.$saveAll(this.state.paymentItems.map(paymentItem => Payment.create({
       amount: parseFloat(paymentItem.get('amount')),
       operationDate: this.props.item.bankTransfer.operationDate,
       paymentStudent: paymentItem.get('studentId'),

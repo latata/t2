@@ -29,12 +29,12 @@ export default class Payment extends Base({
     return data && new Payment(payment);
   }
 
-  static getAllByBankTransferId(id) {
+  static $getAllByBankTransferId(id) {
     return http(`payment?paymentBankTransfer=${id}`)
       .then(payments => List(payments.map(payment => Payment.create(payment))));
   }
 
-  static saveAll(payments, bankTransferId) {
+  static $saveAll(payments, bankTransferId) {
     return http(`payment/${bankTransferId}`, 'post', payments.map(payment => payment.flatten()));
   }
 }

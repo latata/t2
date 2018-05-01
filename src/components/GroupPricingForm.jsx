@@ -123,16 +123,11 @@ class GroupPricingForm extends Component {
   render() {
     return (
       <div>
-        <div>
+        <div className="btn-group">
           {this.state.groupPricings && this.state.groupPricings.map(groupPricing => (
-            <span key={groupPricing._id}>
-              <a
-                href="qwe"
-                onClick={event => this.usePricing(groupPricing, event)}
-              >
-                {groupPricing.name}
-              </a> |
-            </span>))}
+            <button className="btn btn-outline-primary btn-sm" key={groupPricing._id} onClick={event => this.usePricing(groupPricing, event)}>
+              {groupPricing.name}
+            </button>))}
         </div>
         {this.state.pricingItems.map(item => (<PricingItem
           key={item}

@@ -1,4 +1,5 @@
 import auth from './auth';
+import { toast } from 'react-toastify';
 
 const baseURL = 'http://localhost:1337/';
 
@@ -26,8 +27,15 @@ export default function (path, method = 'get', body = null) {
           auth.setJWT(null);
         }
 
+        toast.error(`Wystąpił błąd podczas wykonywania operacji: ${data.message}`);
+
         throw data;
       }
+
+      if (method !== 'get') {
+        toast.success('Operacja zakończona powodzeniem');
+      }
+
       return data;
     });
 }

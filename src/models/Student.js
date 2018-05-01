@@ -76,7 +76,7 @@ export default class Student extends Base({
     return this;
   }
 
-  delete(callback) {
+  $delete(callback) {
     http(`student/${this._id}`, 'delete')
       .then(callback);
 

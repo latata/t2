@@ -24,7 +24,7 @@ export default class Group extends Base({
       group.year = data.year;
       group.company = data.company;
       group.students = data.students && List(data.students.map(student => Student.create(student)))
-        .sort((a, b) => (a.lastName.toLowerCase() < b.lastName.toLowerCase() ? -1 : 1));
+        .sort((a, b) => (a.lastName && b.lastName && a.lastName.toLowerCase() < b.lastName.toLowerCase() ? -1 : 1));
       group.groupPayments = data.groupPayments && List(data.groupPayments);
       group.pricing = data.pricing && Map(data.pricing);
     }
@@ -49,18 +49,6 @@ export default class Group extends Base({
     }, 0);
   }
 
-  static $getById(id) {
-    return http(`group/${id}`)
-      .then(group => Group.create(group));
-  }
-
-  static $getAll(showDeleted) {
-    const search = showDeleted ? '?showDeleted=1' : '';
-
-    return http(`group${search}`)
-      .then(groups => List(groups.map(group => Group.create(group))));
-  }
-
   $save(callback) {
     if (!this._id) {
       http('group', 'post', this.flatten())
@@ -78,5 +66,17 @@ export default class Group extends Base({
       .then(callback);
 
     return this;
+  }
+
+  static $getById(id) {
+    return http(`group/${id}`)
+      .then(group => Group.create(group));
+  }
+
+  static $getAll(showDeleted) {
+    const search = showDeleted ? '?showDeleted=1' : '';
+
+    return http(`group${search}`)
+      .then(groups => List(groups.map(group => Group.create(group))));
   }
 }

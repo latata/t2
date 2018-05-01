@@ -1,6 +1,6 @@
 export default {
   callbacks: [],
-  jwt: window.sessionStorage.getItem('jwt'),
+  jwt: window && window.sessionStorage && window.sessionStorage.getItem('jwt'),
 
   subscribe(cb) {
     this.callbacks.push(cb);
