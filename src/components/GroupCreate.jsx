@@ -18,7 +18,7 @@ class GroupCreate extends Component {
   render() {
     return (
       <React.Fragment>
-        <h3>Nowa grupa</h3>
+        <h2>Nowa grupa</h2>
         <GroupForm onSubmit={this.submit} />
       </React.Fragment>);
   }

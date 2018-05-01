@@ -110,8 +110,8 @@ class StudentDetails extends Component {
   render() {
     const currentRoute = this.props.location.pathname.endsWith('payments') ? 'payments' : 'data';
     return (
-      <div className="m-3">
-        <h1
+      <React.Fragment>
+        <h2
           className="d-flex justify-content-between"
         >{`${get(this, 'state.student.firstName')} ${get(this, 'state.student.lastName')}`}
           <small className="text-muted">
@@ -119,7 +119,7 @@ class StudentDetails extends Component {
               <Icon name="pencil" />
             </Link>
           </small>
-        </h1>
+        </h2>
         <div className="card">
           <div className="card-header">
             <ul className="nav nav-pills card-header-pills">
@@ -155,7 +155,7 @@ class StudentDetails extends Component {
           </div>
         </div>
 
-      </div>);
+      </React.Fragment>);
   }
 }
 
