@@ -16,13 +16,13 @@ module.exports = {
 
   find: async (ctx) => {
     const showDeleted = !!ctx.query.showDeleted;
-    
+
     delete ctx.query.showDeleted;
 
     const data = await strapi.services.group.fetchAll(ctx.query, showDeleted);
 
     // Send 200 `ok`
-    ctx.send(data);
+    ctx.send('DZIALA!');
   },
 
   /**

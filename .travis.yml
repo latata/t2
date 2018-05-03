@@ -14,6 +14,6 @@ script: yarn test && yarn build
 deploy:
   provider: script
   skip_cleanup: true
-  script: scp -r $TRAVIS_BUILD_DIR/build $TRAVIS_BUILD_DIR/backend latata@t2.latata.pl:/home/latata/t2/
+  script: scp -r $TRAVIS_BUILD_DIR/build $TRAVIS_BUILD_DIR/backend latata@t2.latata.pl:/home/latata/t2/ && ssh latata@t2.latata.pl 'cd /home/latata/t2/backned && npm install && sudo pm2 reload server'
   on:
     branch: master
