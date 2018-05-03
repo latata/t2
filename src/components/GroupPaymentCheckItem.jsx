@@ -77,10 +77,13 @@ class GroupPaymentCheckItem extends Component {
   render() {
     const { student, amount } = this.props;
     const {
-      sum, groupOptions, reducedAmount, discount,
+      sum,
+      groupOptions,
+      // reducedAmount,
+      discount,
     } = this.state;
 
-    const classNames = sum >= reducedAmount ? 'green' : 'red';
+    // const classNames = sum >= reducedAmount ? 'green' : 'red';
 
     return (
       <tr>
