@@ -22,7 +22,7 @@ module.exports = {
     const data = await strapi.services.group.fetchAll(ctx.query, showDeleted);
 
     // Send 200 `ok`
-    ctx.send('NO TERAZ DZIAŁA! MUSI!');
+    ctx.send(data);
   },
 
   /**
