@@ -17,4 +17,5 @@ if (rootElement !== null) {
   ReactDOM.render(<App />, rootElement);
 }
 
-registerServiceWorker();
+// uncomment if I want to work on progressive web app
+// registerServiceWorker();
