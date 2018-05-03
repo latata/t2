@@ -47,7 +47,7 @@ class NavBar extends Component {
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
         <div className="container">
-          <Link to="/" className="navbar-brand">Studio Tańca Tango - T2 FTW!</Link>
+          <Link to="/" className="navbar-brand">Studio Tańca Tango</Link>
           <button
             className="navbar-toggler"
             type="button"
