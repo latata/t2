@@ -12,7 +12,10 @@ function GroupList({ groups, removeGroup }) {
           <div className="badge badge-secondary">Liczność: {group.getCurrentSize()}</div>
           <div className="badge badge-secondary">Rok rozpoczęcia: {group.year}</div>
           <div
-            className={`badge badge-${group.company === 'LT' ? 'dark' : 'info'}`}>Firma: {group.company}</div>
+            className={`badge badge-${group.company === 'LT' ? 'dark' : 'info'}`}
+          >
+            Firma: {group.company}
+          </div>
         </div>
       </td>
       <td>
