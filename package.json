@@ -29,7 +29,7 @@
     "flow": "flow",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
-    "test": "react-scripts test",
+    "test": "npm run build-css && react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "linter": "eslint . --ext jsx --ext js"
   },
