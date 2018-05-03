@@ -13,6 +13,6 @@ before_install:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build latata@t2.latata.pl:/home/latata/t2/
+  script: scp -r $TRAVIS_BUILD_DIR/build latata@t2.latata.pl:/home/latata/t2/
   on:
     branch: master
