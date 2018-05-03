@@ -1,7 +1,7 @@
 import auth from './auth';
 import { toast } from 'react-toastify';
 
-const baseURL = 'http://localhost:1337/';
+const baseURL = 'https://t2.latata.pl/api/';
 
 export default function (path, method = 'get', body = null) {
   const options = {
