@@ -5,7 +5,7 @@ import Icon from './Icon';
 
 test('Icon without className', () => {
   const component = renderer.create(
-    <Icon name="testa" />
+    <Icon name="test" />
   );
   let tree = component.toJSON();
   expect(tree).toMatchSnapshot();

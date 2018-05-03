@@ -8,7 +8,7 @@ test('test Student', () => {
   });
 
   expect(student.getFullName())
-    .toEqual('Imie Nazwisko');
+    .toEqual('Imie Nazwiskoa');
 
   const testGroupId = 'testgroup';
   const testCases = [
