@@ -43,7 +43,7 @@ class AttendanceList extends Component {
   }
 
   render() {
-    const students = this.state.students.map((student, index) =>
+    const students = this.state.students.map(student =>
       (
         <tr key={student._id}>
           <td>{student.getFullName()}</td>
@@ -56,18 +56,20 @@ class AttendanceList extends Component {
           <td />
           <td />
         </tr>));
-    const emptyItems = [...Array(itemsPerPage - (this.state.students.size % itemsPerPage))].map((item, index) =>
-      <tr key={index}>
-        <td>&nbsp;</td>
-        <td />
-        <td />
-        <td />
-        <td />
-        <td />
-        <td />
-        <td />
-        <td />
-      </tr>);
+    const emptyItems = [
+      ...Array(itemsPerPage - (this.state.students.size % itemsPerPage))].map((item, index) =>
+      (
+        <tr key={index}>
+          <td>&nbsp;</td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>));
     return (
       this.state.group && (
         <React.Fragment>
