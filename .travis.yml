@@ -1,6 +1,9 @@
 language: node_js
 node_js:
 - '8'
+addons:
+  ssh_known_hosts:
+  - t2.latata.pl
 before_install:
 - openssl aes-256-cbc -K $encrypted_5d2a9bb64424_key -iv $encrypted_5d2a9bb64424_iv
   -in deploy_rsa.enc -out /tmp/deploy_rsa -d
