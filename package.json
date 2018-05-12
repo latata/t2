@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.0.0",
+    "dotenv": "^5.0.1",
     "immutable": "^4.0.0-rc.9",
     "jquery": "^3.3.1",
     "lodash.get": "^4.4.2",
@@ -30,7 +31,7 @@
     "start-backend": "cd backend && strapi start",
     "flow": "flow",
     "build-js": "react-scripts build",
-    "build": "npm-run-all build-css build-js",
+    "build": "cp config/prod.env ./.env && npm-run-all build-css build-js",
     "test": "npm run build-css && react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "linter": "eslint src --ext jsx --ext js"

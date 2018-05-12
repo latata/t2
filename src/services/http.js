@@ -1,7 +1,7 @@
 import auth from './auth';
 import { toast } from 'react-toastify';
 
-const baseURL = 'https://t2.latata.pl/api/';
+const baseURL = process.env.REACT_APP_API_URL;
 
 export default function (path, method = 'get', body = null) {
   const options = {
