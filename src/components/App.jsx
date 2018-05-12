@@ -9,18 +9,19 @@ import './App.css';
 import NavBar from './NavBar';
 import GroupViewContainer from './GroupViewContainer';
 import SvgSprite from './SvgSprite';
-import StudentEdit from './StudentEdit';
-import StudentCreate from './StudentCreate';
-import StudentDetails from './StudentDetails';
-import GroupEdit from './GroupEdit';
-import GroupCreate from './GroupCreate';
+import StudentEditContainer from './StudentEditContainer';
+import StudentCreateContainer from './StudentCreateContainer';
+import StudentDetailsContainer from './StudentDetailsContainer';
+import GroupEditContainer from './GroupEditContainer';
+import GroupCreateContainer from './GroupCreateContainer';
 import Login from './Login';
 import auth from '../services/auth';
-import ConnectTransfers from './ConnectTransfers';
-import BankTransferAssign from './BankTransferAssign';
-import GroupPaymentCheck from './GroupPaymentCheck';
-import AttendanceList from './AttendanceList';
+import ConnectTransfersContainer from './ConnectTransfersContainer';
+import BankTransferAssignContainer from './BankTransferAssignContainer';
+import GroupPaymentCheckContainer from './GroupPaymentCheckContainer';
+import AttendanceListContainer from './AttendanceListContainer';
 import GroupListContainer from './GroupListContainer';
+import SendMessageBoxContainer from './SendMessageBoxContainer';
 
 class App extends Component {
   static onLoggedIn(data) {
@@ -33,7 +34,9 @@ class App extends Component {
     this.state = {
       isLoggedIn: !!auth.jwt,
     };
+  }
 
+  componentDidMount() {
     auth.subscribe(() => {
       if (auth.jwt) {
         this.setState({
@@ -57,19 +60,20 @@ class App extends Component {
             <React.Fragment>
               <Route exact path="/" component={GroupListContainer} />
               <Route exact path="/group/:id([a-f0-9]{24})" component={GroupViewContainer} />
-              <Route exact path="/group/:id([a-f0-9]{24})/attendance-list" component={AttendanceList} />
-              <Route path="/group/:id/edit" component={GroupEdit} />
-              <Route path="/group/:id/payment-check" component={GroupPaymentCheck} />
-              <Route path="/group/new" component={GroupCreate} />
+              <Route exact path="/group/:id([a-f0-9]{24})/attendance-list" component={AttendanceListContainer} />
+              <Route path="/group/:id/edit" component={GroupEditContainer} />
+              <Route path="/group/:id/payment-check" component={GroupPaymentCheckContainer} />
+              <Route path="/group/new" component={GroupCreateContainer} />
               <Route path="/groups" component={GroupListContainer} />
-              <Route path="/student/:id([a-f0-9]{24})" component={StudentDetails} />
-              <Route path="/student/edit/:id" component={StudentEdit} />
-              <Route path="/student/new/:groupId" component={StudentCreate} />
-              <Route path="/connect-transfers/:company" component={ConnectTransfers} />
-              <Route path="/banktransfer/:id([a-f0-9]{24})/assign" component={BankTransferAssign} />
+              <Route path="/student/:id([a-f0-9]{24})" component={StudentDetailsContainer} />
+              <Route path="/student/edit/:id" component={StudentEditContainer} />
+              <Route path="/student/new/:groupId" component={StudentCreateContainer} />
+              <Route path="/connect-transfers/:company" component={ConnectTransfersContainer} />
+              <Route path="/banktransfer/:id([a-f0-9]{24})/assign" component={BankTransferAssignContainer} />
             </React.Fragment>
             }
           </div>
+          <SendMessageBoxContainer />
           <ToastContainer />
           <SvgSprite />
         </div>
