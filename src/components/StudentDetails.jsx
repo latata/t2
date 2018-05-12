@@ -1,8 +1,10 @@
-import React  from 'react';
+import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import get from 'lodash.get';
 import Icon from './Icon';
 import formatDate from '../helpers/date';
+import sms from '../services/sms';
+import SmsRecipient from '../models/SmsRecipient';
 
 function StudentData({ student }) {
   return (
@@ -11,6 +13,15 @@ function StudentData({ student }) {
         <div>
           <div className="d-flex align-items-center mb-2">
             <Icon name="phone" className="mr-2" /> {get(student, 'phoneNo')}
+            <button className="btn btn-outline-primary" onClick={() => {
+              sms.addRecipient(SmsRecipient.create({
+                student,
+                phoneNo: student.phoneNo,
+              }));
+            }}
+            >
+              <Icon name="plus" />
+            </button>
           </div>
           {get(student, 'phoneNo2') &&
           <div className="d-flex align-items-center mb-2">

@@ -21,6 +21,7 @@ import BankTransferAssignContainer from './BankTransferAssignContainer';
 import GroupPaymentCheckContainer from './GroupPaymentCheckContainer';
 import AttendanceListContainer from './AttendanceListContainer';
 import GroupListContainer from './GroupListContainer';
+import SendMessageBoxContainer from './SendMessageBoxContainer';
 
 class App extends Component {
   static onLoggedIn(data) {
@@ -72,6 +73,7 @@ class App extends Component {
             </React.Fragment>
             }
           </div>
+          <SendMessageBoxContainer />
           <ToastContainer />
           <SvgSprite />
         </div>

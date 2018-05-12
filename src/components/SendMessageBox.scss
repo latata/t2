@@ -1,0 +1,121 @@
+.send-message-box {
+  $send-message-box-badge-icon-size: 8px;
+  $send-message-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+  bottom: 0;
+  box-shadow: $send-message-box-shadow;
+  position: fixed;
+  right: 3%;
+  width: 300px;
+  height: 533px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
+  @media screen and (max-width: 480px) {
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    height: auto;
+    width: auto;
+    border-radius: 0;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__circle {
+    align-items: center;
+    cursor: pointer;
+    position: fixed;
+    bottom: 3%;
+    right: 3%;
+    border-radius: 50%;
+    background-color: red;
+    width: 48px;
+    height: 48px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    outline: 0;
+    border: 0;
+    user-select: none;
+    box-shadow: $send-message-box-shadow;
+  }
+
+  &__recipients {
+    margin-bottom: 10px;
+    max-height: 110px;
+    overflow-y: auto;
+  }
+
+  .Select {
+    margin-bottom: 10px;
+  }
+
+  &__recipient {
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+      &::after {
+        content: '';
+        position: absolute;
+        border-radius: .25rem;
+        background-color: rgba(#000, 0.6);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+
+      .icon {
+        display: block;
+      }
+    }
+
+    .icon {
+      width: $send-message-box-badge-icon-size;
+      height: $send-message-box-badge-icon-size;
+      display: none;
+      position: absolute;
+      z-index: 2;
+      top: calc(50% - #{$send-message-box-badge-icon-size / 2});
+      left: calc(50% - #{$send-message-box-badge-icon-size / 2});
+    }
+  }
+
+  &__show-more, &__add {
+    cursor: pointer;
+  }
+
+  &__add, &__clear {
+    .icon {
+      width: $send-message-box-badge-icon-size;
+      height: $send-message-box-badge-icon-size;
+    }
+  }
+
+  &__text {
+    flex: 1;
+    margin-bottom: 10px;
+  }
+
+  &__details {
+    font-size: 12px;
+    line-height: 13px;
+    margin-bottom: 10px;
+  }
+
+  &__status {
+    padding: 10px;
+  }
+}

@@ -101,18 +101,23 @@ module.exports = {
 
   send: async (values) => {
     const students = await Student.find({
-      _id: { $in: values.studentIds }
+      _id: { $in: values.recipients.map(recipient => recipient.student) }
     });
-
+    const studentMap = {};
     const messages = [];
     const phoneNumbers = [];
     const messagesMap = {};
-    students.forEach((student) => {
-      const phoneNo = `+48${student.phoneNo}`;
+
+    students.forEach(student => {
+      studentMap[student._id] = student;
+    });
+
+    values.recipients.forEach((recipient) => {
+      const phoneNo = `+48${recipient.phoneNo}`;
       const message = {
         phoneNo,
         text: values.text,
-        outgoingSmsStudent: student._id,
+        outgoingSmsStudent: studentMap[recipient.student],
       };
       messages.push(message);
       phoneNumbers.push(phoneNo);
