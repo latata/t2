@@ -3,7 +3,6 @@ import { Component } from 'react';
 import { List } from 'immutable';
 import SendMessageBox from './SendMessageBox';
 import sms from '../services/sms';
-import Student from '../models/Student';
 import SmsRecipient from '../models/SmsRecipient';
 
 class SendMessageBoxContainer extends Component {
