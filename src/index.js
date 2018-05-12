@@ -13,10 +13,6 @@ import registerServiceWorker from './registerServiceWorker';
 
 const rootElement = document.getElementById('root');
 
-import dotenv from 'dotenv';
-
-dotenv.config();
-
 if (rootElement !== null) {
   ReactDOM.render(<App />, rootElement);
 }
