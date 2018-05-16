@@ -94,6 +94,16 @@ module.exports = {
    */
 
   remove: async params => {
+    const student = await strapi.services.student.fetch(params);
+
+    if (student.studentPayments.length) {
+      throw 'Nie można usunąć ucznia, który ma przypisane płatności. Ustaw jako rezygnacja.';
+    }
+
+    if (student.phoneNo || student.phoneNo2 || student.street) {
+      throw 'Nie można usunąć ucznia, który ma już przypisany nr telefonu lub adres.';
+    }
+
     // Note: To get the full response of Mongo, use the `remove()` method
     // or add spent the parameter `{ passRawResult: true }` as second argument.
     const data = await Student.findOneAndRemove(params, {})
@@ -110,9 +120,5 @@ module.exports = {
     });
 
     return data;
-  },
-
-  setDeleted: async params => {
-    return await Student.update(params, { deleted: true });
   }
 };
