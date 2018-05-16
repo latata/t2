@@ -35,7 +35,7 @@
     {
       "method": "DELETE",
       "path": "/student/:_id",
-      "handler": "Student.setDeleted",
+      "handler": "Student.destroy",
       "config": {
         "policies": []
       }
