@@ -83,8 +83,11 @@ export default class Student extends Base({
     return this;
   }
 
-  static find(query) {
-    return http(`student?query=${query}`)
+  static find(query, showDeleted = false) {
+    let path = `student?query=${query}`;
+    if (showDeleted) path += '&show_deleted=1';
+
+    return http(path)
       .then(students => List(students.map(student => Student.create(student))));
   }
 

@@ -35,18 +35,52 @@ module.exports = {
    * @return {Promise}
    */
 
-  search: (query) => {
-    const regexp = new RegExp(query, 'i');
+  search: async (query, showDeleted = false) => {
+    const regexp = new RegExp(`(${query.split(' ')
+      .join(')|(')})`, 'ig');
+    const populatePaths = _.keys(_.groupBy(_.reject(strapi.models.student.associations, { autoPopulate: false }), 'alias'))
+      .join(' ');
 
-    return Student
-    .find()
-    .where({
-      $or: [
-        {firstName: { $regex: regexp }},
-        {lastName: { $regex: regexp }}
-      ]
-    })
-    .populate(_.keys(_.groupBy(_.reject(strapi.models.student.associations, {autoPopulate: false}), 'alias')).join(' '));
+    const firstNameAndLastName = await Student
+      .find()
+      .where({
+        firstName: { $regex: regexp },
+        lastName: { $regex: regexp },
+      })
+      .populate(populatePaths);
+
+    const ids = firstNameAndLastName.map((student) => student._id);
+
+    const firstNameOrLastName = await Student
+      .find()
+      .where({
+        $or: [
+          { firstName: { $regex: regexp } },
+          { lastName: { $regex: regexp } },
+        ],
+        _id: {
+          $nin: ids,
+        },
+      })
+      .populate(populatePaths);
+
+    let results = [...firstNameAndLastName, ...firstNameOrLastName];
+
+    if (showDeleted !== '1') {
+      results = results.filter((student) => {
+        let allGroupsDeleted = true;
+
+        student.groups.forEach(group => {
+          if (!group.deleted) {
+            allGroupsDeleted = false;
+          }
+        });
+
+        return !allGroupsDeleted;
+      });
+    }
+
+    return results;
   },
 
   /**

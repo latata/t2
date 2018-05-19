@@ -5,13 +5,14 @@ import Icon from './Icon';
 import Student from '../models/Student';
 import Payment from '../models/Payment';
 import formatDate from '../helpers/date';
+import StudentSelect from './StudentSelect';
 
 class ConnectTransferForm extends Component {
   static getDerivedStateFromProps(props) {
     const matchingStudents = props.item.matchingStudentsResult.map(item => ({
       label: `${item.firstName} ${item.lastName}`,
       value: item._id,
-    }));
+    })).toJS();
     let paymentItems = props.paymentItems || List();
     if (props.item.matchingStudentsResult.size) {
       paymentItems = paymentItems.push(ConnectTransferForm.paymentItem(
@@ -64,37 +65,10 @@ class ConnectTransferForm extends Component {
     this.selectStudent = this.selectStudent.bind(this);
     this.selectGroup = this.selectGroup.bind(this);
     this.submit = this.submit.bind(this);
-    this.getMatchingStudents = this.getMatchingStudents.bind(this);
     this.addPaymentItem = this.addPaymentItem.bind(this);
     this.ignoreItem = this.ignoreItem.bind(this);
 
     this.state = {};
-  }
-
-  getMatchingStudents(input, callback) {
-    if (!input) {
-      callback(null, {
-        options: this.state.matchingStudents.toJS(),
-        // CAREFUL! Only set this to true when there are no more options,
-        // or more specific queries will not be sent to the server.
-        complete: true,
-      });
-    } else {
-      Student.find(input)
-        .then((students) => {
-          const options = students.map((student => ({
-            label: `${student.firstName} ${student.lastName}`,
-            value: student._id,
-            student,
-          })))
-            .toJS();
-
-          callback(null, {
-            options,
-            complete: true,
-          });
-        });
-    }
   }
 
   removePaymentItem(index) {
@@ -218,13 +192,11 @@ class ConnectTransferForm extends Component {
               .map((paymentItem, index) => (
                 <div key={index} className="d-flex align-items-start">
                   <div style={{ flex: 2 }}>
-                    <Select.Async
-                      name="form-field-name"
+                    <StudentSelect
                       value={paymentItem}
                       valueKey="studentId"
-                      labelKey="label"
-                      onChange={data => this.selectStudent(index, data)}
-                      loadOptions={this.getMatchingStudents}
+                      onStudentSelected={data => this.selectStudent(index, data)}
+                      emptyInputOptions={this.state.matchingStudents}
                     />
                   </div>
                   <div style={{ flex: 1 }}>

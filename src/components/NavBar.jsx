@@ -1,38 +1,13 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
 import { Link, withRouter } from 'react-router-dom';
-import Student from '../models/Student';
+import './StudentSelect.css';
+import StudentSelect from './StudentSelect';
 
 class NavBar extends Component {
-  static findStudents(input, callback) {
-    if (input) {
-      Student.find(input)
-        .then((students) => {
-          const options = students.map((student => ({
-            label: `${student.firstName} ${student.lastName}`,
-            value: student._id,
-            student,
-          })))
-            .toJS();
-
-          callback(null, {
-            options,
-            complete: true,
-          });
-        });
-    } else {
-      callback(null, {
-        options: [],
-        complete: true,
-      });
-    }
-  }
-
   constructor(props) {
     super(props);
 
     this.studentSelected = this.studentSelected.bind(this);
-    // this.findStudents = this.findStudents.bind(this);
 
     this.state = {
       search: undefined,
@@ -82,23 +57,17 @@ class NavBar extends Component {
                 </div>
               </li>
             </ul>
-            <form
-              className="form-inline my-2 my-md-0"
+            <div
+              className="my-2 my-md-0"
               style={{
                 flex: 1,
                 maxWidth: '250px',
               }}
             >
-              <Select.Async
-                wrapperStyle={{ flex: 1 }}
-                name="search"
-                value={this.state.search}
-                valueKey="value"
-                labelKey="label"
-                onChange={this.studentSelected}
-                loadOptions={NavBar.findStudents}
+              <StudentSelect
+                onStudentSelected={this.studentSelected}
               />
-            </form>
+            </div>
           </div>
         </div>
       </nav>);
