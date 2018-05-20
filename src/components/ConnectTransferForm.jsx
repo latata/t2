@@ -82,7 +82,7 @@ class ConnectTransferForm extends Component {
   }
 
   ignoreItem() {
-    if (window.confirm('Czy na pewno chcesz usunac wpłatę? Nie będzie można do niej przypisywac płatnosci.')) {
+    if (window.confirm('Czy na pewno chcesz usunac wpłatę? Nie będzie można do niej przypisywac płatnosci. Wszystkie płatności już przyporządkowane do niej zostaną usunięte!')) {
       this.props.item.bankTransfer.delete(() => this.props.onSave());
     }
   }

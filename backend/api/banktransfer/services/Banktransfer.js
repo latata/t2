@@ -189,6 +189,9 @@ module.exports = {
    */
 
   ignore: async params => {
+    await Payment.deleteMany({
+      paymentBankTransfer: params._id,
+    });
     return await Banktransfer.update(params, {ignored: true});
   },
 
