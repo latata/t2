@@ -18,7 +18,7 @@ module.exports = {
     let data;
 
     if (ctx.query.query) {
-      data = await strapi.services.student.search(ctx.query.query, ctx.query.show_deleted);
+      data = await strapi.services.student.search(ctx.query.query, ctx.query.showDeleted);
     } else if(ctx.query.groups) {
       data = await strapi.services.student.fetchAll(ctx.query);
       data.forEach((student) => {

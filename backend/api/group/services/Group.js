@@ -28,6 +28,10 @@ module.exports = {
       convertedParams.where.deleted = { $ne: true };
     }
 
+    if(params.deleted === '1') {
+      convertedParams.where.deleted = true;
+    }
+
     return Group
       .find()
       .where(convertedParams.where)
