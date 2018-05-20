@@ -85,22 +85,13 @@ module.exports = {
    */
 
   destroy: async (ctx, next) => {
-    const data = await strapi.services.student.remove(ctx.params);
+    try {
+      const data = await strapi.services.student.remove(ctx.params);
 
-    // Send 200 `ok`
-    ctx.send(data);
+      // Send 200 `ok`
+      ctx.send(data);
+    } catch(e) {
+      ctx.badRequest(e);
+    }
   },
-
-  /**
-   * Set deleted flag to a/an student record.
-   *
-   * @return {Object}
-   */
-
-  setDeleted: async (ctx, next) => {
-    const data = await strapi.services.student.setDeleted(ctx.params);
-
-    // Send 200 `ok`
-    ctx.send(data);
-  }
 };
