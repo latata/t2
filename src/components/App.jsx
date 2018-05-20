@@ -21,6 +21,7 @@ import BankTransferAssignContainer from './BankTransferAssignContainer';
 import GroupPaymentCheckContainer from './GroupPaymentCheckContainer';
 import AttendanceListContainer from './AttendanceListContainer';
 import GroupListContainer from './GroupListContainer';
+import GroupArchiveListContainer from './GroupArchiveListContainer';
 import SendMessageBoxContainer from './SendMessageBoxContainer';
 
 class App extends Component {
@@ -64,7 +65,8 @@ class App extends Component {
               <Route path="/group/:id/edit" component={GroupEditContainer} />
               <Route path="/group/:id/payment-check" component={GroupPaymentCheckContainer} />
               <Route path="/group/new" component={GroupCreateContainer} />
-              <Route path="/groups" component={GroupListContainer} />
+              <Route exact path="/groups" component={GroupListContainer} />
+              <Route path="/groups/archive" component={GroupArchiveListContainer} />
               <Route path="/student/:id([a-f0-9]{24})" component={StudentDetailsContainer} />
               <Route path="/student/edit/:id" component={StudentEditContainer} />
               <Route path="/student/new/:groupId" component={StudentCreateContainer} />

@@ -32,7 +32,9 @@ class StudentForm extends Component {
   }
 
   componentDidMount() {
-    Group.$getAll(true)
+    Group.$getAll({
+      showDeleted: '1',
+    })
       .then((groups) => {
         this.setState({
           groups: groups.map(group => Map({

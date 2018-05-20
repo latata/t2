@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Group from '../models/Group';
 import GroupList from './GroupList';
 import Loading from './Loading';
-import { Link } from 'react-router-dom';
-import Icon from './Icon';
 
-class GroupListContainer extends Component {
+class GroupArchiveListContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.removeGroup = this.removeGroup.bind(this);
+    this.unremoveGroup = this.unremoveGroup.bind(this);
 
     this.itemActions = [
       {
@@ -25,7 +24,7 @@ class GroupListContainer extends Component {
       {
         type: 'button',
         icon: 'trash',
-        action: this.removeGroup,
+        action: this.unremoveGroup,
       },
     ];
 
@@ -43,16 +42,18 @@ class GroupListContainer extends Component {
     this.fetchGroups();
   }
 
-  removeGroup(group) {
-    if (window.confirm('Czy na pewno chcesz zarchiwizować grupę?')) {
-      group.$delete(() => {
+  unremoveGroup(group) {
+    if (window.confirm('Czy na pewno chcesz cofnąć archiwizację?')) {
+      group.$undelete(() => {
         this.fetchGroups();
       });
     }
   }
 
   fetchGroups() {
-    Group.$getAll()
+    Group.$getAll({
+      deleted: '1',
+    })
       .then((groups) => {
         this.setState({ groups, ready: true });
       });
@@ -62,15 +63,13 @@ class GroupListContainer extends Component {
     return (
       <Loading ready={this.state.ready}>
         <h2 className="d-flex justify-content-between">
-          Grupy
-          <Link to="/group/new" className="btn btn-outline-primary with-label"><Icon
-            name="plus" /> Nowa grupa</Link>
+          Archiwum grup
         </h2>
-        <Link to="/groups/archive">Pokaż archiwum grup</Link>
+        <Link to="/groups">Wróć do aktywnych grup</Link>
         <GroupList groups={this.state.groups} itemActions={this.itemActions} />
       </Loading>
     );
   }
 }
 
-export default GroupListContainer;
+export default GroupArchiveListContainer;

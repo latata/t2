@@ -68,13 +68,29 @@ export default class Group extends Base({
     return this;
   }
 
+  $undelete(callback) {
+    http(`group/${this._id}`, 'put', {
+      deleted: false,
+    })
+      .then(callback);
+
+    return this;
+  }
+
   static $getById(id) {
     return http(`group/${id}`)
       .then(group => Group.create(group));
   }
 
-  static $getAll(showDeleted) {
-    const search = showDeleted ? '?showDeleted=1' : '';
+  static $getAll(params) {
+    let search = '';
+    if (params) {
+      search += '?';
+      Object.keys(params)
+        .forEach((key) => {
+          search += `${key}=${params[key]}`;
+        });
+    }
 
     return http(`group${search}`)
       .then(groups => List(groups.map(group => Group.create(group))));
