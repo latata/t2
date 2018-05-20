@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import h from 'react-hyperscript';
-import Select from 'react-select';
 import './SendMessageBox.css';
-import NavBar from './NavBar';
 import SendMessageBoxRecipients from './SendMessageBoxRecipients';
+import StudentSelect from './StudentSelect';
 
 const recipientsLimit = 4;
 
@@ -47,14 +46,9 @@ class SendMessageBoxForm extends Component {
       />
     ) : null;
     const recipientSelect = (
-      <Select.Async
-        name="recipient"
-        placeholder="Wpisz imię lub naziwsko..."
+      <StudentSelect
         value={recipient}
-        valueKey="value"
-        labelKey="label"
-        onChange={studentSelected}
-        loadOptions={NavBar.findStudents}
+        onStudentSelected={studentSelected}
       />
     );
 
