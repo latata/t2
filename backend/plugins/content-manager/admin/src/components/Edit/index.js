@@ -53,7 +53,6 @@ const getInputType = (type = '') => {
       return 'text';
   }
 };
-debugger;
 
 class Edit extends React.PureComponent {
   state = { currentLayout: {}, displayedFields: {} };

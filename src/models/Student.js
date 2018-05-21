@@ -1,6 +1,7 @@
 import { Map, List, fromJS } from 'immutable';
 import Base from './Base';
 import http from '../services/http';
+import Group from './Group';
 
 export default class Student extends Base({
   firstName: undefined,
@@ -39,8 +40,8 @@ export default class Student extends Base({
       student.deleted = data.deleted;
       student.resigned = data.resigned;
       student.groupsOptions = fromJS(data.groupsOptions);
-      student.groups = List(data.groups);
-      student.studentPayments = List(data.studentPayments);
+      student.groups = data.groups && List(data.groups.map(group => Group.create(group)));
+      student.studentPayments = data.studentPayments && List(data.studentPayments);
     }
 
     return data && new Student(student);
@@ -56,6 +57,27 @@ export default class Student extends Base({
 
   isResigned(groupId) {
     return this.getIn(['groupsOptions', groupId, 'resigned'], false);
+  }
+
+  isAssignedToGroup(groupId) {
+    return this.groups.find(group => group._id === groupId);
+  }
+
+  static comparator(studentA, studentB) {
+    const lastNameA = studentA.lastName && studentA.lastName.toLowerCase();
+    const lastNameB = studentB.lastName && studentB.lastName.toLowerCase();
+    const firstNameA = studentA.firstName && studentA.firstName.toLowerCase();
+    const firstNameB = studentB.firstName && studentB.firstName.toLowerCase();
+
+    if (lastNameA < lastNameB) {
+      return -1;
+    } else if (lastNameA > lastNameB) {
+      return 1;
+    }
+    if (firstNameA < firstNameB) {
+      return -1;
+    }
+    return 1;
   }
 
   $save(callback, propertyName) {

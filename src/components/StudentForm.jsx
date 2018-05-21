@@ -37,10 +37,12 @@ class StudentForm extends Component {
     })
       .then((groups) => {
         this.setState({
-          groups: groups.map(group => Map({
-            value: group._id,
-            label: group.code,
-          })),
+          groups: groups
+            .filter(group => !group.deleted || this.state.student.isAssignedToGroup(group._id))
+            .map(group => Map({
+              value: group._id,
+              label: group.getLabel(this.state.student),
+            })),
         });
       });
   }

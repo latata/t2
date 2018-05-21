@@ -26,7 +26,7 @@ module.exports = {
       .sort(convertedParams.sort)
       .skip(convertedParams.start)
       .limit(convertedParams.limit)
-      .populate({ path: 'paymentStudent', populate: { path: 'groups', match: { deleted: { $ne: true } } } });
+      .populate({ path: 'paymentStudent', populate: { path: 'groups' } });
   // .populate(_.keys(_.groupBy(_.reject(strapi.models.payment.associations, {autoPopulate: false}), 'alias')).join(' '));
   },
 
