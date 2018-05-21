@@ -6,6 +6,7 @@ import Student from '../models/Student';
 import Payment from '../models/Payment';
 import formatDate from '../helpers/date';
 import StudentSelect from './StudentSelect';
+import Group from '../models/Group';
 
 class ConnectTransferForm extends Component {
   static getDerivedStateFromProps(props) {
@@ -35,27 +36,19 @@ class ConnectTransferForm extends Component {
   }
 
   static paymentItem(student, groupId, amount) {
+    const studentGroups = student.get('groups')
+      .sort((a, b) => Group.comparator(a, b, student))
+      .map(item => Map({
+        label: item.getLabel(student),
+        value: item._id,
+      }));
+
     return Map({
       studentId: student._id,
-      groupId: groupId || student.getIn(['groups', 0, '_id']),
+      groupId: groupId || studentGroups.getIn([0, 'value']),
       amount,
       label: `${student.firstName} ${student.lastName}`,
-      studentGroups: student.get('groups')
-        .map((item) => {
-          let label = item.code;
-
-          if (
-            student.groupsOptions && student.groupsOptions[item._id] &&
-            student.groupsOptions[item._id].resigned
-          ) {
-            label += ' (R)';
-          }
-
-          return Map({
-            label,
-            value: item._id,
-          });
-        }),
+      studentGroups,
     });
   }
 

@@ -6,6 +6,7 @@ import http from '../services/http';
 export default class Group extends Base({
   code: undefined,
   name: undefined,
+  deleted: undefined,
   year: undefined,
   company: undefined,
   students: List(),
@@ -21,10 +22,11 @@ export default class Group extends Base({
       group._id = data._id;
       group.code = data.code;
       group.name = data.name;
+      group.deleted = data.deleted;
       group.year = data.year;
       group.company = data.company;
       group.students = data.students && List(data.students.map(student => Student.create(student)))
-        .sort((a, b) => (a.lastName && b.lastName && a.lastName.toLowerCase() < b.lastName.toLowerCase() ? -1 : 1));
+        .sort((a, b) => Student.comparator(a, b));
       group.groupPayments = data.groupPayments && List(data.groupPayments);
       group.pricing = data.pricing && Map(data.pricing);
     }
@@ -47,6 +49,46 @@ export default class Group extends Base({
       }
       return prev;
     }, 0);
+  }
+
+  getLabel(student) {
+    let label = this.code;
+
+    if (this.deleted) {
+      label += ' (archiwum)';
+    } else if (student && student.isResigned(this._id)) {
+      label += ' (rezygnacja)';
+    }
+
+    return label;
+  }
+
+  getWeight(student) {
+    if (this.deleted) {
+      return 2;
+    }
+
+    if (student.isResigned(this._id)) {
+      return 1;
+    }
+
+    return 0;
+  }
+
+  static comparator(groupA, groupB, student) {
+    const weightDiff = groupA.getWeight(student) - groupB.getWeight(student);
+
+    if (weightDiff) {
+      return weightDiff;
+    }
+
+    if (groupA.code < groupB.code) {
+      return -1;
+    } else if (groupA.code > groupB.code) {
+      return 1;
+    }
+
+    return 0;
   }
 
   $save(callback) {
