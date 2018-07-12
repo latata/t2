@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import h from 'react-hyperscript';
 import { Map } from 'immutable';
 import GroupPricing from '../models/GroupPricing';
+import InputGroup from './forms/InputGroup';
+import SimpleValidator from '../helpers/validators/SimpleValidator';
 
 const monthMap = {
   oct: 'Październik',
@@ -41,18 +44,19 @@ function PricingItem(props) {
   } else if (number === 9) {
     installment = 'rat';
   }
+  const label = `${number} ${installment} ${monthName}`;
 
   return (
-    <div className="form-group">
-      <label htmlFor={props.name}>{number} {installment} {monthName}</label>
-      <input
-        name={props.name}
-        id={props.name}
-        className="form-control"
-        value={value}
-        onChange={props.inputChanged}
-      />
-    </div>);
+    h(InputGroup, {
+      label,
+      name: props.name,
+      value,
+      onChange: props.inputChanged,
+      submitted: props.submitted,
+      onValidityChange: props.onValidityChange,
+      validator: new SimpleValidator({ required: true }),
+    })
+  );
 }
 
 class GroupPricingForm extends Component {
@@ -113,8 +117,8 @@ class GroupPricingForm extends Component {
     this.updatePricing(pricing);
   }
 
-  inputChanged(event) {
-    const pricing = this.state.pricing.set(event.target.name, event.target.value);
+  inputChanged({ name, value }) {
+    const pricing = this.state.pricing.set(name, value);
 
     this.setState({ pricing });
     this.updatePricing(pricing);
@@ -125,7 +129,7 @@ class GroupPricingForm extends Component {
       <div>
         <div className="btn-group">
           {this.state.groupPricings && this.state.groupPricings.map(groupPricing => (
-            <button className="btn btn-outline-primary btn-sm" key={groupPricing._id} onClick={event => this.usePricing(groupPricing, event)}>
+            <button type="button" className="btn btn-outline-primary btn-sm" key={groupPricing._id} onClick={event => this.usePricing(groupPricing, event)}>
               {groupPricing.name}
             </button>))}
         </div>
@@ -134,6 +138,8 @@ class GroupPricingForm extends Component {
           name={item}
           pricing={this.state.pricing}
           inputChanged={this.inputChanged}
+          submitted={this.props.submitted}
+          onValidityChange={this.props.onValidityChange}
         />))}
       </div>);
   }
