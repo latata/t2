@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import h from 'react-hyperscript';
 import ReactSelect from 'react-select';
 

@@ -19,7 +19,6 @@ class GroupForm extends Component {
   constructor(props) {
     super(props);
 
-    this.inputChangedOld = this.inputChangedOld.bind(this);
     this.inputChanged = this.inputChanged.bind(this);
     this.updatePricing = this.updatePricing.bind(this);
     this.companyChanged = this.companyChanged.bind(this);
@@ -37,10 +36,6 @@ class GroupForm extends Component {
     if (this.props.group !== newProps.group) {
       this.setState({ group: newProps.group });
     }
-  }
-
-  inputChangedOld(event) {
-    this.setState({ group: this.state.group.set(event.target.name, event.target.value) });
   }
 
   inputChanged({ name, value }) {

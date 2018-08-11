@@ -69,13 +69,14 @@ class Input extends Component {
   }
 
   render() {
-    const { id } = this.props;
+    const { id, type = 'text' } = this.props;
     const { name, value } = this.state;
 
     return h('input.form-control', {
       id,
       name,
       value,
+      type,
       onChange: this.onChange,
       onBlur: this.onBlur,
       ref: this.inputRef,

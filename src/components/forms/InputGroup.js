@@ -43,6 +43,7 @@ class InputGroup extends Component {
       value,
       validator,
       submitted,
+      type,
     } = this.props;
     const { error, touched } = this.state;
 
@@ -54,6 +55,7 @@ class InputGroup extends Component {
         id: name,
         value,
         validator,
+        type,
         onChange: this.onChange,
         onTouch: this.onTouch,
         onValidityChange: this.onValidityChange,

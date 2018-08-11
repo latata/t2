@@ -4,6 +4,15 @@ import { List, Map } from 'immutable';
 import get from 'lodash.get';
 import Student from '../models/Student';
 import Group from '../models/Group';
+import InputGroup from './forms/InputGroup';
+import SimpleValidator from '../helpers/validators/SimpleValidator';
+import EmailValidator from '../helpers/validators/EmailValidator';
+
+const validators = {
+  firstName: new SimpleValidator({ required: true }),
+  lastName: new SimpleValidator({ required: true }),
+  email: new EmailValidator(),
+};
 
 class StudentForm extends Component {
   static getDate(isoDate) {
@@ -25,6 +34,9 @@ class StudentForm extends Component {
     this.inputChanged = this.inputChanged.bind(this);
     this.submit = this.submit.bind(this);
     this.selectChanged = this.selectChanged.bind(this);
+    this.onValidityChange = this.onValidityChange.bind(this);
+
+    this.errors = Map();
 
     this.state = {
       student: this.props.student || Student.create(props.group ? { groups: [props.group] } : {}),
@@ -51,17 +63,31 @@ class StudentForm extends Component {
     this.setState({ student: newProps.student });
   }
 
-  inputChanged(event) {
-    this.setState({ student: this.state.student.set(event.target.name, event.target.value) });
+  inputChanged({ name, value }) {
+    this.setState({ student: this.state.student.set(name, value) });
   }
 
   selectChanged(data) {
     this.setState({ student: this.state.student.set('groups', List(data.map(group => group.value))) });
   }
 
+  onValidityChange({ name, error }) {
+    // we need to use component property because state udpates are asynchronous
+    if (error) {
+      this.errors = this.errors.set(name, error);
+    } else {
+      this.errors = this.errors.delete(name);
+    }
+  }
+
   submit(event) {
     event.preventDefault();
-    this.props.onSubmit(this.state.student);
+    this.setState({
+      submitted: true,
+    });
+    if (!this.errors.size) {
+      this.props.onSubmit(this.state.student);
+    }
   }
 
   render() {
@@ -70,110 +96,92 @@ class StudentForm extends Component {
     }
 
     return (
-      <form onSubmit={this.submit}>
-        <div className="form-group">
-          <label htmlFor="firstName">Imię</label>
-          <input
-            name="firstName"
-            id="firstName"
-            className="form-control"
-            value={get(this, 'state.student.firstName', '')}
-            onChange={this.inputChanged}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="lastName">Naziwsko</label>
-          <input
-            name="lastName"
-            id="lastName"
-            className="form-control"
-            value={get(this, 'state.student.lastName', '')}
-            onChange={this.inputChanged}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="birthDate">Data urodzenia</label>
-          <input
-            type="date"
-            name="birthDate"
-            id="birthDate"
-            className="form-control"
-            value={StudentForm.getDate(get(this, 'state.student.birthDate', ''))}
-            onChange={this.inputChanged}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="phoneNo">Telefon</label>
-          <input
-            name="phoneNo"
-            id="phoneNo"
-            className="form-control"
-            value={get(this, 'state.student.phoneNo', '')}
-            onChange={this.inputChanged}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="phoneNo2">Telefon 2</label>
-          <input
-            name="phoneNo2"
-            id="phoneNo2"
-            className="form-control"
-            value={get(this, 'state.student.phoneNo2', '')}
-            onChange={this.inputChanged}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="street">Ulica</label>
-          <input
-            name="street"
-            id="street"
-            className="form-control"
-            value={get(this, 'state.student.street', '')}
-            onChange={this.inputChanged}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="postalCode">Kod pocztowy</label>
-          <input
-            name="postalCode"
-            id="postalCode"
-            className="form-control"
-            value={get(this, 'state.student.postalCode', '')}
-            onChange={this.inputChanged}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="city">Miejscowość</label>
-          <input
-            name="city"
-            id="city"
-            className="form-control"
-            value={get(this, 'state.student.city', '')}
-            onChange={this.inputChanged}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">E-mail</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            className="form-control"
-            value={get(this, 'state.student.email', '')}
-            onChange={this.inputChanged}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="className">Klasa</label>
-          <input
-            name="className"
-            id="className"
-            className="form-control"
-            value={get(this, 'state.student.className', '')}
-            onChange={this.inputChanged}
-          />
-        </div>
-
+      <form onSubmit={this.submit} noValidate={true}>
+        <InputGroup
+          label="Imię"
+          name="firstName"
+          validator={validators.firstName}
+          value={get(this, 'state.student.firstName', '')}
+          submitted={this.state.submitted}
+          onChange={this.inputChanged}
+          onValidityChange={this.onValidityChange}
+        />
+        <InputGroup
+          label="Nazwisko"
+          name="lastName"
+          validator={validators.lastName}
+          value={get(this, 'state.student.lastName', '')}
+          submitted={this.state.submitted}
+          onChange={this.inputChanged}
+          onValidityChange={this.onValidityChange}
+        />
+        <InputGroup
+          label="Data urodzenia"
+          name="birthDate"
+          type="date"
+          value={StudentForm.getDate(get(this, 'state.student.birthDate', ''))}
+          submitted={this.state.submitted}
+          onChange={this.inputChanged}
+          onValidityChange={this.onValidityChange}
+        />
+        <InputGroup
+          label="Telefon"
+          name="phoneNo"
+          value={get(this, 'state.student.phoneNo', '')}
+          submitted={this.state.submitted}
+          onChange={this.inputChanged}
+          onValidityChange={this.onValidityChange}
+        />
+        <InputGroup
+          label="Telefon 2"
+          name="phoneNo2"
+          value={get(this, 'state.student.phoneNo2', '')}
+          submitted={this.state.submitted}
+          onChange={this.inputChanged}
+          onValidityChange={this.onValidityChange}
+        />
+        <InputGroup
+          label="Ulica"
+          name="street"
+          value={get(this, 'state.student.street', '')}
+          submitted={this.state.submitted}
+          onChange={this.inputChanged}
+          onValidityChange={this.onValidityChange}
+        />
+        <InputGroup
+          label="Kod pocztowy"
+          name="postalCode"
+          value={get(this, 'state.student.postalCode', '')}
+          submitted={this.state.submitted}
+          onChange={this.inputChanged}
+          onValidityChange={this.onValidityChange}
+        />
+        <InputGroup
+          label="Miejscowość"
+          name="city"
+          value={get(this, 'state.student.city', '')}
+          submitted={this.state.submitted}
+          onChange={this.inputChanged}
+          onValidityChange={this.onValidityChange}
+        />
+        <InputGroup
+          label="E-mail"
+          name="email"
+          type="email"
+          validator={validators.email}
+          value={get(this, 'state.student.email', '')}
+          submitted={this.state.submitted}
+          onChange={this.inputChanged}
+          onValidityChange={this.onValidityChange}
+        />
+        <InputGroup
+          label="Klasa"
+          name="className"
+          value={get(this, 'state.student.className', '')}
+          submitted={this.state.submitted}
+          onChange={this.inputChanged}
+          onValidityChange={this.onValidityChange}
+        />
         <div className="form-group">
           <label htmlFor="groups">Grupy</label>
           <Select
